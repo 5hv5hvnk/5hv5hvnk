@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "About"
-permalink: "/about/
+permalink: "/about/"
 ---
 What I do, what I like, what consumes most of my time etc.
 
