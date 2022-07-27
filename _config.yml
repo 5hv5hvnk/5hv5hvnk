@@ -1,7 +1,7 @@
 title: "Shashank Kirtania"
 author: "Shashank Kirtania"
 description: "Made with <b style=\"color: #f45;\">&lt;3</b> by 5hv5hvnk"
-permalink: /:title/
+permalink: /:home/
 lang: "en"
 excerpt_separator: "\n\n\n"
 date_format: "%B %d, %Y"
@@ -19,7 +19,7 @@ navigation:                # accepts {file, title, url, icon, sidebaricon}
   - {file: "README.md",title: home}
   - {file: "index.md", title: about}
   - {file: "blog.md", title: blog}
-  - {url:"https://5hv5hvnk.github.io/resume.pdf", title: resumé}
+  - {file: "resume.pdf", title: resumé, url: "https://5hv5hvnk.github.io/resume.pdf"}
 
 external:                  # shows a footer with social links - for available icons see fontawesome.com/icons
   - {title: Mail, icon: envelope, url: "mailto:shashankkirtania123@gmail.com"}
