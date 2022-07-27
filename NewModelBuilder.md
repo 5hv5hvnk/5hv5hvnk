@@ -154,5 +154,5 @@ plt.plot(prediction_data.input, pred_mean['y_model'], label='mean', zorder=1)
 plt.legend()
 plt.show()
 ```
-Plots recived : 
+Plots recived : <br>
 <img src="https://i.imgur.com/FRPgbfc.png">
