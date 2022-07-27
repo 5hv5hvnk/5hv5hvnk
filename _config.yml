@@ -1,6 +1,6 @@
-title: "Blog Title"
-author: "Blog Author"
-description: "Made with <b style=\"color: #f45;\">&lt;3</b>"
+title: "Shashank Kirtania"
+author: "Shashank Kirtania"
+description: "Made with <b style=\"color: #f45;\">&lt;3</b> by 5hv5hvnk"
 permalink: /:title/
 lang: "en"
 excerpt_separator: "\n\n\n"
@@ -16,13 +16,16 @@ minimal: false             # use a dark header
 # Menu
 
 navigation:                # accepts {file, title, url, icon, sidebaricon}
-  - {file: "index.html"}
-  - {file: "README.md"}
+  - {file: "index.html",title: home}
+  - {file: "README.md", title: about}
+  - {file: "blog.md", title: blog}
+  - {file: "resume.pdf", title: resumé}
 
 external:                  # shows a footer with social links - for available icons see fontawesome.com/icons
-  - {title: Mail, icon: envelope, url: "mailto:niklasbuschmann@users.noreply.github.com"}
-  - {title: Github, icon: github, url: "https://github.com/niklasbuschmann/contrast"}
-  - {title: Subscribe, icon: rss, url: "/feed.xml"}
+  - {title: Mail, icon: envelope, url: "mailto:shashankkirtania123@gmail.com"}
+  - {title: Github, icon: github, url: "https://github.com/5hv5hvnk/contrast"}
+  - {title: VSCO, url: "https://vsco.co/5hv5hvnk/gallery"}
+  - {title: linkedin, url: "https://www.linkedin.com/in/shashank-kirtania-83835b129/"}
 
 comments:
 #  disqus_shortname: ""    # see https://disqus.com/
