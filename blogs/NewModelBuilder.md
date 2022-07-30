@@ -1,6 +1,6 @@
 ## Using ModelBuilder class for deploying PyMC models <br>
 
-##### Motivation
+#### Motivation
 Many users using PyMC face difficulty in deploying or saving their designed PyMC model because deploying/saving/loading a user-created model is a cumbersome task in PyMC. One of the reasons behind this is there is no direct way to save or load a model in PyMC like scikit-learn or TensorFlow. To combat this, We created a `ModelBuilder` class to improve workflow and use direct APIs to build, fit, save, load, predict and more.
 
 The new `ModelBuilder` class allows users to use direct methods to `fit`, `predict`, `save`, `load`. Users can create any model they want, inherit the `ModelBuilder` class, and use predefined methods. <br>
