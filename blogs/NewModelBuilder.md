@@ -94,11 +94,11 @@ The `.fit()` method is defined in a manner such that it returns the `idata` whic
 ```
 def fit(self, data : pd.DataFrame = None):
  if data is not None: 
- self.data = data
+   self.data = data
 
  if self.basic_RVs == []:
- print('No model found, building model...')
- self.build()
+   print('No model found, building model...')
+   self.build()
 
  with self:
     self.idata = pm.sample(**self.sample_config)
@@ -144,8 +144,7 @@ When saving or loading the model multiple times, we might not need to save the m
 ```
 # Creating new data to predict on
 x_pred = np.linspace(start=1, stop=50, num=100)
-pred_data = x_pred + 3 + np.random.normal(0, 1, len(x_pred)) * np.random.rand(100)*1.67
-prediction_data = pd.DataFrame({'input': pred_data)
+prediction_data = pd.DataFrame({'input': x_pred)
 # Predicting only point estimate
 pred_mean = imported_model.predict(prediction_data)
 # Predicitng samples
