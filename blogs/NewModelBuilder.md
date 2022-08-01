@@ -154,9 +154,9 @@ pred_samples = imported_model.predict(prediction_data, point_estimate=False)
 
 After using the `predict()`, we can plot our data and see graphically how satisfactory our `LinearModel` is
 ```
-plt.plot(prediction_data.input, pred_samples['y_model'].T, color='0.5', 
- alpha=.05, zorder=0)
-plt.plot(prediction_data.input, pred_mean['y_model'], label='mean', zorder=1)
+plt.figure(figsize=(20,10))
+plt.plot(data['input'], data['output'],'bo')
+plt.plot(prediction_data.input, pred_mean['y_model'], label='mean', zorder=1,color='r')
 plt.legend()
 plt.show()
 ```
