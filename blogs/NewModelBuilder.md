@@ -140,10 +140,11 @@ This saves two files at the given path, and the name
 2. `.nc` file that stores the idata
 When saving or loading the model multiple times, we might not need to save the model or the idata of the model so we can change the parameters accordingly.
 <br>
+
 `predict()` method allows users to do a posterior predcit with the fitted model.
 ```
 # Creating new data to predict on
-x_pred = np.linspace(start=1, stop=50, num=100)
+x_pred = np.random.rand(100)*10
 prediction_data = pd.DataFrame({'input': x_pred)
 # Predicting only point estimate
 pred_mean = imported_model.predict(prediction_data)
