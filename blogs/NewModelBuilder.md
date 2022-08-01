@@ -11,57 +11,57 @@ class LinearModel(ModelBuilder):
  version = '0.1'
 
  def _build(self):
- # data
- x = pm.MutableData('x', self.data['input'].values)
- y_data = pm.MutableData('y_data', self.data['output'].values)
+    # data
+    x = pm.MutableData('x', self.data['input'].values)
+    y_data = pm.MutableData('y_data', self.data['output'].values)
 
- # prior parameters
- a_loc = self.model_config['a_loc']
- a_scale = self.model_config['a_scale']
- b_loc = self.model_config['b_loc']
- b_scale = self.model_config['b_scale']
- obs_error = self.model_config['obs_error']
+    # prior parameters
+    a_loc = self.model_config['a_loc']
+    a_scale = self.model_config['a_scale']
+    b_loc = self.model_config['b_loc']
+    b_scale = self.model_config['b_scale']
+    obs_error = self.model_config['obs_error']
 
- # priors
- a = pm.Normal("a", a_loc, sigma=a_scale)
- b = pm.Normal("b", b_loc, sigma=b_scale)
- obs_error = pm.HalfNormal("σ_model_fmc", obs_error)
+    # priors
+    a = pm.Normal("a", a_loc, sigma=a_scale)
+    b = pm.Normal("b", b_loc, sigma=b_scale)
+    obs_error = pm.HalfNormal("σ_model_fmc", obs_error)
 
- # observed data
- y_model = pm.Normal('y_model', a + b * x, obs_error, observed=y_data)
+    # observed data
+    y_model = pm.Normal('y_model', a + b * x, obs_error, observed=y_data)
 
 
  def _data_setter(self, data : pd.DataFrame):
- with self.model:
- pm.set_data({'x': data['input'].values})
- try: # if y values in new data
- pm.set_data({'y_data': data['output'].values})
- except: # dummies otherwise
- pm.set_data({'y_data': np.zeros(len(data))})
+    with self.model:
+        pm.set_data({'x': data['input'].values})
+        try: # if y values in new data
+        pm.set_data({'y_data': data['output'].values})
+        except: # dummies otherwise
+        pm.set_data({'y_data': np.zeros(len(data))})
 
 
  @classmethod
  def create_sample_input(cls):
- x = np.linspace(start=1, stop=9, num=15)
- y = 5 * x + 3 + np.random.normal(0, 1, len(x))
- data = pd.DataFrame({'input': x, 'output': y})
+    x = np.linspace(start=1, stop=50, num=100)
+    y = 5 * x + 3 + np.random.normal(0, 1, len(x)) * np.random.rand(100)*10 +  np.random.rand(100)*6.4
+    data = pd.DataFrame({'input': x, 'output': y})
 
- model_config = {
- 'a_loc': 7,
- 'a_scale': 3,
- 'b_loc': 5,
- 'b_scale': 3,
- 'obs_error': 2,
- }
+    model_config = {
+    'a_loc': 7,
+    'a_scale': 3,
+    'b_loc': 5,
+    'b_scale': 3,
+    'obs_error': 2,
+    }
 
- sampler_config = {
- 'draws': 1_000,
- 'tune': 1_000,
- 'chains': 1,
- 'target_accept': 0.95,
- }
+    sampler_config = {
+    'draws': 1_000,
+    'tune': 1_000,
+    'chains': 1,
+    'target_accept': 0.95,
+    }
 
- return data, model_config, sampler_config
+    return data, model_config, sampler_config
 ```
 Above is an example of a user-created `LinearModel` which inherits the `ModelBuilder` class and overrides methods to build, set data and create sample input. <br>
 #### Let's look at implementation to understand the real-world use of the `ModelBuilder` class in a better way <br>
@@ -101,16 +101,15 @@ def fit(self, data : pd.DataFrame = None):
  self.build()
 
  with self:
- self.idata = pm.sample(**self.sample_config)
- self.idata.extend(pm.sample_prior_predictive())
- self.idata.extend(pm.sample_posterior_predictive(self.idata))
+    self.idata = pm.sample(**self.sample_config)
+    self.idata.extend(pm.sample_prior_predictive())
+    self.idata.extend(pm.sample_posterior_predictive(self.idata))
 
- self.idata.attrs['id']=self.id()
- self.idata.attrs['model_type']=self._model_type
- self.idata.attrs['version']=self.version
- self.idata.attrs['sample_conifg']=self.sample_config
- self.idata.attrs['model_config']=self.model_config
- # model,model_type,version,sample_conifg,model_config
+    self.idata.attrs['id']=self.id()
+    self.idata.attrs['model_type']=self._model_type
+    self.idata.attrs['version']=self.version
+    self.idata.attrs['sample_conifg']=self.sample_config
+    self.idata.attrs['model_config']=self.model_config
  return self.idata
 ```
 `fit` method takes one argument `data` on which we need to fit the model and assigns `idata.attrs` with `id`, `model_type`, `version`, `sample_conifg`, `model_config`. 
@@ -144,7 +143,9 @@ When saving or loading the model multiple times, we might not need to save the m
 `predict()` method allows users to do a posterior predcit with the fitted model.
 ```
 # Creating new data to predict on
-prediction_data = pd.DataFrame({'input': np.linspace(-10, 20, 100) + np.random.rand(100)*3})
+x_pred = np.linspace(start=1, stop=50, num=100)
+pred_data = x_pred + 3 + np.random.normal(0, 1, len(x_pred)) * np.random.rand(100)*1.67
+prediction_data = pd.DataFrame({'input': pred_data)
 # Predicting only point estimate
 pred_mean = imported_model.predict(prediction_data)
 # Predicitng samples
