@@ -164,3 +164,6 @@ plt.ylabel('y');
 ```
 Plots recived : <br>
 ![image.png](images/modelbuilder.png)
+
+
+PR [#6023](https://github.com/pymc-devs/pymc/pull/6023) shows the implemetation of the `ModelBuilder` class for further disscussion and suggestion please add a comment on the PR itself.
