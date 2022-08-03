@@ -143,22 +143,24 @@ When saving or loading the model multiple times, we might not need to save the m
 
 `predict()` method allows users to do a posterior predcit with the fitted model.
 ```
-# Creating new data to predict on
-x_pred = np.random.rand(100)*10
-prediction_data = pd.DataFrame({'input': x_pred)
-# Predicting only point estimate
+# prediction with new data
+x_pred = np.random.uniform(low=0, high=1, size=100)
+prediction_data = pd.DataFrame({'input':x_pred})
+# only point estimate
 pred_mean = imported_model.predict(prediction_data)
-# Predicitng samples
+# samples
 pred_samples = imported_model.predict(prediction_data, point_estimate=False)
 ```
 
 After using the `predict()`, we can plot our data and see graphically how satisfactory our `LinearModel` is
 ```
-plt.figure(figsize=(20,10))
-plt.plot(data['input'], data['output'],'bo')
-plt.plot(prediction_data.input, pred_mean['y_model'], label='mean', zorder=1,color='r')
-plt.legend()
-plt.show()
+plt.figure(figsize=(7, 7))
+plt.plot(data['input'], data['output'], 'bo', label='data')
+plt.plot(prediction_data.input, pred_mean['y_model'],label='predict',color='r')
+plt.title('Posterior predictive regression lines')
+plt.legend(loc=0)
+plt.xlabel('x')
+plt.ylabel('y');
 ```
 Plots recived : <br>
 ![image.png](images/modelbuilder.png)
